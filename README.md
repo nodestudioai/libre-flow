@@ -23,9 +23,27 @@ Mantenés dos teclas, hablás, y el texto aparece donde está el cursor, en cual
 - Un micrófono.
 - Una clave de API para transcribir. La de [Groq](https://console.groq.com/keys) es gratuita; también funciona con OpenAI o cualquier servicio compatible.
 
-## Instalación paso a paso
+## Instalación con Claude Code
 
-Todo se hace desde **PowerShell** (buscalo en el menú Inicio). Copiá y pegá cada comando.
+Es la forma más simple: Claude Code hace todo por vos.
+
+1. Abrí [Claude Code](https://claude.com/claude-code) en tu computadora.
+2. Pegale este mensaje:
+
+   ```text
+   Instalá Libre Flow en esta computadora. Cloná https://github.com/nodestudioai/libre-flow y seguí al pie de la letra el archivo INSTALAR.md del repositorio.
+   ```
+
+3. Si Windows pide permiso para instalar .NET, aceptá. En un par de minutos la app queda instalada y abierta.
+4. Cargá tu clave, que es lo único que hacés a mano: entrá a [console.groq.com/keys](https://console.groq.com/keys), creá una cuenta gratis, tocá **Create API Key** y pegala en Libre Flow, en **Ajustes → Guardar clave**.
+
+Listo. Mantené `Ctrl` + `Win`, decí una frase y soltá.
+
+Para actualizar más adelante, decile a Claude Code: "actualizá Libre Flow".
+
+## Instalación manual
+
+Si preferís hacerlo vos, todo se hace desde **PowerShell** (buscalo en el menú Inicio). Copiá y pegá cada comando.
 
 ### 1. Instalar .NET 10
 
@@ -35,7 +53,7 @@ Es el componente de Microsoft con el que se compila la app. Si ya lo tenés, sal
 winget install Microsoft.DotNet.SDK.10
 ```
 
-Al terminar, **cerrá PowerShell y volvé a abrirlo**.
+Windows va a pedir permiso; aceptá.
 
 ### 2. Descargar Libre Flow
 
@@ -111,7 +129,7 @@ Actúa al apretar espacio, y también al apretar Enter si la línea tiene más d
 
 ## Actualizar y desinstalar
 
-Para actualizar, desde la carpeta `libre-flow`:
+Con Claude Code alcanza con pedírselo. A mano, para actualizar, desde la carpeta `libre-flow`:
 
 ```powershell
 git pull

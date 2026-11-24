@@ -1,4 +1,4 @@
-# Quita Libre Flow del usuario actual. Conserva tus datos salvo que agregues -BorrarDatos.
+﻿# Quita Libre Flow del usuario actual. Conserva tus datos salvo que agregues -BorrarDatos.
 param([switch]$BorrarDatos)
 
 $program = Join-Path $env:LOCALAPPDATA 'Programs\LibreFlow'

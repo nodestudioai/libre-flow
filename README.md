@@ -1,10 +1,10 @@
+<p align="center"><img src="docs/portada.png" alt="Libre Flow" width="760"></p>
+
 # Libre Flow
 
 Dictado por voz y autocorrector para Windows, de código abierto.
 
 Mantenés dos teclas, hablás, y el texto aparece donde está el cursor, en cualquier programa. Y cuando escribís con el teclado, corrige los errores al apretar espacio, como el autocorrector de un teléfono.
-
-![Panel de Libre Flow](docs/panel.jpg)
 
 ## Qué hace
 
@@ -40,7 +40,7 @@ Al terminar, **cerrá PowerShell y volvé a abrirlo**.
 ### 2. Descargar Libre Flow
 
 ```powershell
-git clone https://github.com/Alejosantanna/libre-flow.git
+git clone https://github.com/nodestudioai/libre-flow.git
 ```
 
 Si no tenés Git, en esta página tocá **Code → Download ZIP**, descomprimilo y abrí PowerShell dentro de esa carpeta.

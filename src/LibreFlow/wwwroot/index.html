@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Libre Flow</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">
+      <img src="logo.png" alt="" width="30" height="30">
+      <span>Libre Flow</span>
+    </div>
+    <nav id="nav"></nav>
+    <div class="side-foot">
+      <label class="ac-quick" title="También con Shift + Alt + A">
+        <span>
+          <strong>Autocorrector</strong>
+          <small id="acQuickState">activado</small>
+        </span>
+        <input type="checkbox" class="switch" id="acQuick">
+      </label>
+      <div class="version" id="version"></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="banner" id="keyBanner" hidden>
+      <div>
+        <strong>Falta un paso para dictar</strong>
+        <span>Cargá tu clave de la API de transcripción. La de Groq es gratis.</span>
+      </div>
+      <button class="btn primary" data-go="ajustes">Ir a Ajustes</button>
+    </div>
+    <div class="page" id="page"></div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="mock.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

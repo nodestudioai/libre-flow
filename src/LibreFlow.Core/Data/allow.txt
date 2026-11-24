@@ -1,0 +1,13 @@
+# Palabras que el autocorrector nunca toca ni pone en mayúscula.
+# Jerga, abreviaturas de chat, marcas y términos técnicos. Una por línea o separadas por espacios.
+che boludo boluda dale re bue ahre posta laburo laburar guita pibe piba pibes finde compu celu porfa profe tele peli bici uni facu info insta wpp wsp
+ok okey okay oki chau jaja jeje jiji sos vos tmb tb xq pq q k xd dsp bn mñn tkm ntp nah sip sep ajá aja mmm eh ah oh uh uy ay ey epa opa ups
+app apps web link links online offline software hardware wifi email mail mails chat chats click clic post posts reel reels story stories prompt prompts skill skills
+api apis login logout logo setup dashboard backend frontend bug bugs deploy commit commits push pull repo repos token tokens script scripts plugin plugins
+claude chatgpt gpt openai anthropic groq whisper gemini copilot cursor notion slack discord zoom meet teams figma canva
+google youtube instagram tiktok facebook twitter linkedin whatsapp telegram spotify netflix amazon mercadolibre mercadopago
+windows mac macos linux iphone android chrome firefox edge safari
+supabase vercel github gitlab n8n manychat remotion higgsfield apify
+git npm npx pnpm bun pip cd ls dir cat grep sed awk ssh vim nano code sudo apt brew wget curl docker kubectl dotnet python node deno cargo rustc tsc vite next
+env src dist cmd pwsh bash zsh json yaml toml md txt csv png jpg jpeg svg gif mp3 mp4 wav exe dll zip pdf html css js ts tsx jsx py cs sql db
+http https www com org net io dev ai sdk cli ui ux id url uri usb ram cpu gpu ssd hd

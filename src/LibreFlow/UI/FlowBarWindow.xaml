@@ -1,0 +1,98 @@
+<Window x:Class="LibreFlow.UI.FlowBarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Libre Flow" Width="460" Height="140"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Topmost="True" ShowInTaskbar="False" ShowActivated="False" ResizeMode="NoResize" Focusable="False"
+        UseLayoutRounding="True" SnapsToDevicePixels="True">
+    <Window.Resources>
+        <Style x:Key="RoundButton" TargetType="Button">
+            <Setter Property="Width" Value="22"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#26FFFFFF"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" CornerRadius="11" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Border x:Name="Bubble" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,54"
+                CornerRadius="10" Background="#F5131315" BorderBrush="#33FFFFFF" BorderThickness="1"
+                Padding="13,8" Opacity="0" IsHitTestVisible="False">
+            <TextBlock x:Name="BubbleText" Foreground="#F2F2F2" FontFamily="Segoe UI Variable Text, Segoe UI" FontSize="12.5"
+                       TextWrapping="Wrap" MaxWidth="380" TextAlignment="Center"/>
+        </Border>
+
+        <Border x:Name="Pill" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,12"
+                Height="32" Width="66" CornerRadius="16" Background="#EB0E0E10" BorderBrush="#47FFFFFF" BorderThickness="1"
+                MouseEnter="OnPillEnter" MouseLeave="OnPillLeave" MouseRightButtonUp="OnPillRightClick">
+            <Grid>
+                <!-- Waiting: logo starts a dictation, "Aa" turns the autocorrector on and off. -->
+                <Grid x:Name="IdlePanel">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="Transparent" Cursor="Hand" MouseLeftButtonUp="OnLogoClick">
+                        <Image x:Name="Logo" Width="19" Height="19" Margin="9,0,2,0" HorizontalAlignment="Center"
+                               RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Border>
+                    <Border x:Name="AcToggle" Grid.Column="1" Background="Transparent" Cursor="Hand" Padding="3,0,11,0"
+                            MouseLeftButtonUp="OnAutocorrectClick">
+                        <Grid VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                            <Grid.RenderTransform>
+                                <ScaleTransform x:Name="AcScale" ScaleX="1" ScaleY="1"/>
+                            </Grid.RenderTransform>
+                            <TextBlock x:Name="AcText" Text="Aa" Foreground="White" FontFamily="Segoe UI Variable Text, Segoe UI"
+                                       FontSize="12.5" FontWeight="SemiBold"/>
+                            <Rectangle x:Name="AcStrike" Height="1.4" Fill="#FF6B6B" VerticalAlignment="Center" Margin="-2,1,-2,0"
+                                       Visibility="Collapsed" RenderTransformOrigin="0.5,0.5">
+                                <Rectangle.RenderTransform>
+                                    <RotateTransform Angle="-18"/>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- Recording: live level bars; in hands-free also cancel and stop. -->
+                <Grid x:Name="RecPanel" Visibility="Collapsed" Margin="5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="CancelButton" Grid.Column="0" Style="{StaticResource RoundButton}" Click="OnCancelClick">
+                        <Path Data="M0,0 L7,7 M7,0 L0,7" Stroke="White" StrokeThickness="1.5" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                    </Button>
+                    <StackPanel x:Name="Bars" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Button x:Name="StopButton" Grid.Column="2" Style="{StaticResource RoundButton}" Background="#F04444" Click="OnStopClick">
+                        <Rectangle Width="7" Height="7" RadiusX="1.5" RadiusY="1.5" Fill="White"/>
+                    </Button>
+                </Grid>
+
+                <!-- Transcribing. -->
+                <StackPanel x:Name="BusyPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                    <Ellipse x:Name="Dot1" Width="5" Height="5" Fill="White" Margin="2.5,0"/>
+                    <Ellipse x:Name="Dot2" Width="5" Height="5" Fill="White" Margin="2.5,0"/>
+                    <Ellipse x:Name="Dot3" Width="5" Height="5" Fill="White" Margin="2.5,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

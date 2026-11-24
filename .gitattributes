@@ -1,0 +1,6 @@
+* text=auto
+# Dictionaries must stay byte-exact.
+src/LibreFlow.Core/Data/* -text
+*.jpg binary
+*.png binary
+*.ico binary

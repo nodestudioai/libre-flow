@@ -16,7 +16,7 @@ El panel es HTML, CSS y JavaScript locales (sin frameworks ni recursos externos)
 
 1. `Ctrl` + `Win` inicia la grabación a 16 kHz mono.
 2. Al soltar, el audio va a una API compatible con OpenAI (`/audio/transcriptions`), con las palabras del diccionario como pista.
-3. El texto pasa por un modelo de lenguaje que quita muletillas, aplica las autocorrecciones dichas al hablar y ordena la puntuación. Si ese paso falla o cambia demasiado el texto, se usa la transcripción original.
+3. El texto pasa por un modelo de lenguaje que quita muletillas, aplica las autocorrecciones dichas al hablar, ordena la puntuación y le da forma: párrafos, listas y, en dictados largos, títulos (simples en general, Markdown en herramientas técnicas, ninguno en chats). Las instrucciones están en `Prompts.cs`. Si ese paso falla o cambia demasiado el texto, se usa la transcripción original.
 4. Se aplican los reemplazos del diccionario y los atajos de texto.
 5. El resultado se pega con el portapapeles y `Ctrl` + `V`, y el portapapeles vuelve a su contenido anterior.
 6. Se guarda en el historial.
@@ -50,6 +50,10 @@ Todo vive en `%APPDATA%\LibreFlow`:
 - `settings.json`: ajustes y la clave cifrada.
 - `audio/`: los últimos dictados, para reintentar si falla la red.
 - `logs/app.log`: registro de eventos. No contiene texto dictado ni tipeado.
+
+El diccionario arranca con una lista de términos técnicos (`StarterDictionary.cs`), que se agrega una sola vez por versión de la lista: una palabra borrada no vuelve.
+
+**Apps empaquetadas.** Un programa abierto desde una app de la Tienda (MSIX), como algunas terminales o asistentes de escritorio, hereda su aislamiento: Windows desvía a una carpeta privada de esa app los archivos nuevos bajo `AppData` y las escrituras al registro. Abierto así, Libre Flow guardaría sus datos donde un arranque normal no los ve. Por eso al iniciar crea un archivo de prueba, mira dónde cayó de verdad y, si fue desviado, se vuelve a abrir a través del Explorador y cierra esa instancia (`PackageContext.cs`). Por lo mismo, el inicio con Windows lo registra la propia app y no solo el instalador.
 
 ## Límites conocidos
 

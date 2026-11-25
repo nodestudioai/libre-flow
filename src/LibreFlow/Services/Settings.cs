@@ -19,6 +19,8 @@ public sealed class AppSettings
     public string Language { get; set; } = "auto";
     public bool Cleanup { get; set; } = true;
     public bool ToneByApp { get; set; } = true;
+    /// <summary>Lay the dictation out in paragraphs, lists and (for long ones) titles.</summary>
+    public bool AutoFormat { get; set; } = true;
 
     public string MicDevice { get; set; } = "";
     /// <summary>Recordings quieter than this (0..1) count as silence and are not sent. Lower it for a very quiet microphone.</summary>
@@ -32,6 +34,7 @@ public sealed class AppSettings
     public bool TrailingSpace { get; set; } = true;
 
     public bool ShowBar { get; set; } = true;
+    public bool StartWithWindows { get; set; } = true;
     public int TypingWpm { get; set; } = 40;
     public int KeepAudioCount { get; set; } = 20;
 

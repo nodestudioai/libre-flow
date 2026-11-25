@@ -17,7 +17,7 @@
 
   const settings = {
     provider: "groq", baseUrl: "https://api.groq.com/openai/v1", asrModel: "whisper-large-v3", llmModel: "openai/gpt-oss-120b",
-    language: "auto", cleanup: true, toneByApp: true, micDevice: "", sounds: true, muteWhileDictating: true, pasteMethod: "clipboard",
+    language: "auto", cleanup: true, toneByApp: true, autoFormat: true, micDevice: "", sounds: true, muteWhileDictating: true, pasteMethod: "clipboard",
     restoreClipboard: true, trailingSpace: true, showBar: true, typingWpm: 40, autocorrectEnabled: true, autocorrectTypos: true,
     autocorrectAccents: true, autocorrectCapitalize: true, autocorrectOnEnter: true, autocorrectExcludedApps: ["code"], onboardingDone: false,
   };

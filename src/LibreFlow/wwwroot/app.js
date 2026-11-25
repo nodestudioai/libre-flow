@@ -646,6 +646,7 @@ async function renderSettings() {
     row("Idioma", "En automático detecta español o inglés en cada dictado.", select("language", [["auto", "Automático (español e inglés)"], ["es", "Siempre español"], ["en", "Siempre inglés"]])),
     row("Limpiar el texto con IA", "Quita muletillas y repeticiones, ordena la puntuación y respeta cuando te corregís al hablar. Apagado, pega lo que se escuchó tal cual.", sw("cleanup")),
     row("Adaptar el tono al programa", "Más relajado en chats, más prolijo en mails, literal en herramientas técnicas.", sw("toneByApp")),
+    row("Ordenar en párrafos y listas", "Separa en párrafos cuando cambiás de tema, arma listas cuando enumerás y pone títulos en los dictados largos. Apagado, deja todo en un solo bloque.", sw("autoFormat")),
     row("Micrófono", null, (() => {
       const node = el("select", { onchange: (e) => setSettings({ micDevice: e.target.value }) },
         el("option", { value: "" }, "El predeterminado de Windows"), state.mics.map((m) => el("option", { value: m }, m)));

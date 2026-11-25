@@ -82,6 +82,7 @@ public sealed class Database : IDisposable
                 undone INTEGER NOT NULL DEFAULT 0);
             CREATE INDEX IF NOT EXISTS corrections_ts ON corrections(ts);
             CREATE TABLE IF NOT EXISTS learned(word TEXT PRIMARY KEY COLLATE NOCASE, created TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS meta(key TEXT PRIMARY KEY, value TEXT NOT NULL);
             """);
     }
 
@@ -249,7 +250,12 @@ public sealed class Database : IDisposable
     {
         lock (_gate)
         {
-            using var cmd = Cmd("SELECT id, phrase, replace_from, starred, source FROM dictionary ORDER BY starred DESC, phrase COLLATE NOCASE");
+            // Starred first, then the user's own words, then the suggested ones in the order they were added.
+            // The speech model only gets the start of this list as a hint.
+            using var cmd = Cmd("""
+                SELECT id, phrase, replace_from, starred, source FROM dictionary
+                ORDER BY starred DESC, source = 'sugerida', CASE WHEN source = 'sugerida' THEN id END, phrase COLLATE NOCASE
+                """);
             using var r = cmd.ExecuteReader();
             var list = new List<DictionaryEntry>();
             while (r.Read())
@@ -276,6 +282,30 @@ public sealed class Database : IDisposable
     }
 
     public void DeleteDictionaryEntry(long id) => Exec("DELETE FROM dictionary WHERE id=$a", id);
+
+    /// <summary>
+    /// Adds the built-in tech vocabulary as suggestions. Runs once per list version, so a word the
+    /// user deleted does not come back, and never touches a word the user already had.
+    /// </summary>
+    public void AddStarterWords()
+    {
+        lock (_gate)
+        {
+            using (var read = Cmd("SELECT value FROM meta WHERE key='starter_words'"))
+            {
+                var done = Convert.ToInt32(read.ExecuteScalar() ?? 0, CultureInfo.InvariantCulture);
+                if (done >= StarterDictionary.Version) return;
+            }
+
+            var now = Iso(DateTime.UtcNow);
+            Exec("BEGIN");
+            foreach (var word in StarterDictionary.Words)
+                Exec("INSERT OR IGNORE INTO dictionary(phrase, replace_from, starred, source, created) VALUES ($a, $b, 0, 'sugerida', $c)",
+                    word.Phrase, word.ReplaceFrom, now);
+            Exec("INSERT OR REPLACE INTO meta(key, value) VALUES ('starter_words', $a)", StarterDictionary.Version.ToString(CultureInfo.InvariantCulture));
+            Exec("COMMIT");
+        }
+    }
 
     // ---------- snippets ----------
 

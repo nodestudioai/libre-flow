@@ -8,6 +8,8 @@ internal static class AppPaths
             ? custom
             : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "LibreFlow");
 
+    public static bool IsCustomData { get; } = Environment.GetEnvironmentVariable("LIBREFLOW_DATA") is { Length: > 0 };
+
     public static string Database => Path.Combine(DataDir, "libreflow.db");
     public static string Settings => Path.Combine(DataDir, "settings.json");
     public static string AudioDir => Path.Combine(DataDir, "audio");

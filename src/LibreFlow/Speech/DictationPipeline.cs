@@ -90,8 +90,8 @@ internal sealed class DictationPipeline
                 try
                 {
                     var kind = Prompts.Classify(app.Process, app.Title);
-                    var cleaned = await _client.CleanupAsync(Prompts.Cleanup(kind, s.ToneByApp, hint), Prompts.CleanupUser(raw), ct);
-                    if (SpeechText.IsFaithfulCleanup(raw, cleaned)) text = cleaned;
+                    var cleaned = await _client.CleanupAsync(Prompts.Cleanup(kind, s.ToneByApp, hint, s.AutoFormat), Prompts.CleanupUser(raw), ct);
+                    if (SpeechText.IsFaithfulCleanup(raw, cleaned)) text = SpeechText.NormalizeLayout(cleaned);
                     else
                     {
                         entry.Status = "raw";

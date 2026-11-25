@@ -11,8 +11,9 @@ Mantenés dos teclas, hablás, y el texto aparece donde está el cursor, en cual
 - **Dictado en cualquier programa.** Mantené `Ctrl` + `Win`, hablá y soltá. El texto se escribe donde esté el cursor.
 - **Manos libres.** Dos toques rápidos de `Ctrl` + `Win` dejan grabando sin sostener teclas.
 - **Texto limpio.** Un modelo de lenguaje quita muletillas y repeticiones, ordena la puntuación y respeta cuando te corregís al hablar.
+- **Texto ordenado.** Separa en párrafos cuando cambiás de tema, arma una lista numerada cuando decís "tengo que hacer tres cosas" y pone títulos en los dictados largos. En los chats no pone títulos. Se apaga desde Ajustes.
 - **Autocorrector en vivo para el teclado físico.** `ohla` pasa a `hola`, `tambien` a `también`, `hol acomo estas` a `hola como estas`. Funciona sin internet y entiende el voseo rioplatense (`tenés`, `decime`).
-- **Diccionario personal.** Nombres, marcas y términos que tienen que escribirse siempre igual.
+- **Diccionario personal.** Nombres, marcas y términos que tienen que escribirse siempre igual. Ya viene cargado con más de 70 nombres de herramientas y términos técnicos que la IA suele escribir mal (Claude, ChatGPT, n8n, GitHub, Vercel, Supabase y otros); podés editarlos o borrarlos.
 - **Atajos de texto por voz.** Decís "mi mail" y escribe tu dirección completa.
 - **Historial e Insights.** Todo lo dictado, cuánto tiempo ahorraste, tu velocidad y tus errores más repetidos.
 - **Arranca con Windows** y vive como una barrita chica abajo en la pantalla y un ícono junto al reloj.

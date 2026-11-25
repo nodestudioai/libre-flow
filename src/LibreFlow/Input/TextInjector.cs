@@ -60,7 +60,10 @@ internal static class TextInjector
         {
             if (ch == '\n')
             {
+                // Shift+Enter: a line break everywhere, where a bare Enter would send the message in a chat.
+                inputs.Add(Key(Win32.VK_SHIFT, up: false));
                 AddKey(inputs, Win32.VK_RETURN);
+                inputs.Add(Key(Win32.VK_SHIFT, up: true));
                 continue;
             }
             if (ch == '\r') continue;

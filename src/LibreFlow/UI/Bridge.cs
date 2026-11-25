@@ -55,8 +55,8 @@ internal sealed class Bridge
                 return State();
 
             case "autostart.set":
-                Autostart.Set(p.GetProperty("enabled").GetBoolean());
-                _settings.Update(_ => { });
+                var startWithWindows = p.GetProperty("enabled").GetBoolean();
+                _settings.Update(s => s.StartWithWindows = startWithWindows);
                 return State();
 
             case "engine.test":
@@ -168,13 +168,13 @@ internal sealed class Bridge
         {
             settings = new
             {
-                s.Provider, s.BaseUrl, s.AsrModel, s.LlmModel, s.Language, s.Cleanup, s.ToneByApp, s.MicDevice, s.Sounds,
+                s.Provider, s.BaseUrl, s.AsrModel, s.LlmModel, s.Language, s.Cleanup, s.ToneByApp, s.AutoFormat, s.MicDevice, s.Sounds,
                 s.MuteWhileDictating, s.PasteMethod, s.RestoreClipboard, s.TrailingSpace, s.ShowBar, s.TypingWpm,
                 s.AutocorrectEnabled, s.AutocorrectTypos, s.AutocorrectAccents, s.AutocorrectCapitalize, s.AutocorrectOnEnter,
                 s.AutocorrectExcludedApps, s.OnboardingDone,
             },
             hasKey = _settings.HasApiKey,
-            autostart = Autostart.IsEnabled,
+            autostart = s.StartWithWindows,
             version = Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "1.0.0",
             mics = Recorder.DeviceNames(),
             presets = new[] { EnginePresets.Groq, EnginePresets.OpenAi },

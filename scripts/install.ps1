@@ -31,5 +31,8 @@ $link.Save()
 
 Set-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'LibreFlow' -Value "`"$exe`" --minimized"
 
-if (-not $NoStart) { Start-Process $exe }
+# Se abre a través del Explorador, no como hija de esta ventana. Si el instalador corre dentro de una
+# app empaquetada (por ejemplo, la app de escritorio de un asistente), una hija directa heredaría su
+# aislamiento y guardaría el diccionario, el historial y la clave donde un arranque normal no los ve.
+if (-not $NoStart) { Start-Process explorer.exe "`"$exe`"" }
 "Libre Flow instalado en $dest"

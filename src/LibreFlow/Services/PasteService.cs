@@ -26,7 +26,7 @@ internal sealed class PasteService
 
         var restore = _settings.Current.RestoreClipboard;
         var previous = restore ? Snapshot() : null;
-        if (!TrySetText(text))
+        if (!TrySetText(LibreFlow.Core.Speech.SpeechText.WindowsLines(text)))
         {
             await Task.Run(() => TextInjector.TypeText(text));
             return;

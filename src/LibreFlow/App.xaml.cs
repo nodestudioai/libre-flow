@@ -30,6 +30,12 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
+        if (PackageContext.RelaunchOutside())
+        {
+            Shutdown();
+            return;
+        }
+
         _mutex = new Mutex(true, InstanceName, out var isFirst);
         if (!isFirst)
         {
@@ -58,6 +64,7 @@ public partial class App : Application
         Log.Info("Inicio de Libre Flow");
         _settings.Load();
         _db = new Database(AppPaths.Database);
+        _db.AddStarterWords();
 
         _bar = new FlowBarWindow();
         _input = new InputController();
@@ -128,11 +135,7 @@ public partial class App : Application
         _tray.AutocorrectToggled += () => ToggleAutocorrect(announce: false);
         _tray.PasteLastRequested += () => _ = _dictation.PasteLastAsync();
         _tray.ShowBarToggled += () => _settings.Update(s => s.ShowBar = !s.ShowBar);
-        _tray.AutostartToggled += () =>
-        {
-            Autostart.Set(!Autostart.IsEnabled);
-            ApplySettings();
-        };
+        _tray.AutostartToggled += () => _settings.Update(s => s.StartWithWindows = !s.StartWithWindows);
         _tray.ExitRequested += Quit;
     }
 
@@ -156,8 +159,26 @@ public partial class App : Application
         }
         _bar.SetAutocorrect(s.AutocorrectEnabled);
         _bar.SetBarVisible(s.ShowBar);
-        _tray.Update(s.AutocorrectEnabled, s.ShowBar, Autostart.IsEnabled);
+        SyncAutostart(s.StartWithWindows);
+        _tray.Update(s.AutocorrectEnabled, s.ShowBar, s.StartWithWindows);
         _dashboard?.Push("settings.changed");
+    }
+
+    /// <summary>
+    /// The app registers "start with Windows" itself instead of trusting the installer, whose registry
+    /// write is lost when it runs inside a packaged app. A test run with its own data folder leaves it alone.
+    /// </summary>
+    private static void SyncAutostart(bool wanted)
+    {
+        if (AppPaths.IsCustomData || Autostart.IsEnabled == wanted) return;
+        try
+        {
+            Autostart.Set(wanted);
+        }
+        catch (Exception ex)
+        {
+            Log.Error("No se pudo cambiar el inicio con Windows", ex);
+        }
     }
 
     /// <summary>Loading the dictionaries takes about a second, so it happens after the app is already usable.</summary>

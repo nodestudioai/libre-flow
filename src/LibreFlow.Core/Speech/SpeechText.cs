@@ -93,6 +93,24 @@ public static class SpeechText
         return sb.ToString();
     }
 
+    /// <summary>
+    /// Line breaks the way Windows programs expect them on the clipboard, with at most one blank line in a row.
+    /// </summary>
+    public static string WindowsLines(string text)
+    {
+        var lines = text.Replace("\r\n", "\n").Replace('\r', '\n');
+        lines = Regex.Replace(lines, @"\n{3,}", "\n\n");
+        return lines.Replace("\n", "\r\n");
+    }
+
+    /// <summary>Cleans up the layout a model returns: no spaces at the end of lines, at most one blank line in a row.</summary>
+    public static string NormalizeLayout(string text)
+    {
+        var lines = text.Replace("\r\n", "\n").Replace('\r', '\n');
+        lines = Regex.Replace(lines, @"[ \t]+\n", "\n");
+        return Regex.Replace(lines, @"\n{3,}", "\n\n").Trim();
+    }
+
     public static string Tidy(string raw)
     {
         var text = Regex.Replace(raw.Trim(), @"\s+", " ");
